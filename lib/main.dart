@@ -58,6 +58,26 @@ class _SplashScreenState extends State<SplashScreen> {
                         )
                       ],
                     ),
+                  )),
+              Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(
+                        backgroundColor: Colors.redAccent,
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 20.0)),
+                      Text(
+                        'Holiday Beguns',
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                          color: Colors.black
+                        ),
+                      ),
+                    ],
                   ))
             ],
           ),
