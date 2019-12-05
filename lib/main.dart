@@ -1,10 +1,18 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:holiday/home.dart';
+import 'package:holiday/my_navigator.dart';
+
+var routes = <String, WidgetBuilder> {
+  "/home": (BuildContext context) => Home(),
+};
 
 void main () => runApp(MaterialApp(
+  debugShowCheckedModeBanner: true,
   home: SplashScreen(),
+  routes: routes,
 ));
+
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), ()=> Home());
+    Timer(Duration(seconds: 3), ()=> MyNavigator.home(context));
   }
 
   @override
@@ -60,6 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   )),
               Expanded(
+                flex: 1,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -68,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       Padding(padding: EdgeInsets.only(top: 20.0)),
                       Text(
-                        'Holiday Beguns',
+                        'Holiday is starting ...',
                         softWrap: true,
                         textAlign: TextAlign.center,
                         style: TextStyle(
