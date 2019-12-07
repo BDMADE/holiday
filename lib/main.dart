@@ -8,7 +8,7 @@ var routes = <String, WidgetBuilder> {
 };
 
 void main () => runApp(MaterialApp(
-  debugShowCheckedModeBanner: true,
+  debugShowCheckedModeBanner: false,
   home: SplashScreen(),
   routes: routes,
 ));
