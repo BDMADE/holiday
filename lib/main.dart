@@ -1,98 +1,73 @@
-import 'dart:async';
+//import 'package:flutter/material.dart';
+//import 'package:holiday/home.dart';
+//import 'package:holiday/splash_screen.dart';
+//import 'package:holiday/my_navigator.dart';
+//
+//var routes = <String, WidgetBuilder> {
+//  "/home": (BuildContext context) => Home(),
+//};
+//
+//void main () => runApp(MaterialApp(
+//  debugShowCheckedModeBanner: false,
+//  home: SplashScreen(),
+//  routes: routes,
+//));
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:holiday/home.dart';
-import 'package:holiday/my_navigator.dart';
+import 'package:holiday/country.dart';
+import 'package:holiday/list.dart';
 
-var routes = <String, WidgetBuilder> {
-  "/home": (BuildContext context) => Home(),
-};
-
-void main () => runApp(MaterialApp(
-  debugShowCheckedModeBanner: false,
-  home: SplashScreen(),
-  routes: routes,
-));
-
-
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
+void main() {
+  runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: new ThemeData(
+      primaryColor: const Color(0xFF02BB9F),
+      primaryColorDark: const Color(0xFF167F67),
+      accentColor: const Color(0xFF167F67),
+    ),
+    home: new MyApp(),
+  ));
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class MyApp extends StatefulWidget {
   @override
-  void initState() {
-    super.initState();
-    Timer(Duration(seconds: 3), ()=> MyNavigator.home(context));
-  }
+  MyAppState createState() => new MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+  List data;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(color: Colors.grey[300]),
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Load local JSON file",
+            style: new TextStyle(color: Colors.white),),
+        ),
+        body: new Container(
+          child: new Center(
+            // Use future builder and DefaultAssetBundle to load the local JSON file
+            child: new FutureBuilder(
+                future: DefaultAssetBundle.of(context)
+                    .loadString('data_repo/country.json'),
+                builder: (context, snapshot) {
+                  List<Country> countries =
+                  parseJosn(snapshot.data.toString());
+                  return !countries.isEmpty
+                      ? new CountyList(country: countries)
+                      : new Center(child: new CircularProgressIndicator());
+                }),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                  flex: 2,
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        CircleAvatar(
-                          backgroundColor: Colors.red[600],
-                          radius: 50.0,
-                          child: Icon(
-                            Icons.beach_access,
-                            color: Colors.amber[300],
-                            size: 50.0,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                        ),
-                        Text(
-                          'Holiday',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.red
-                          ),
+        ));
+  }
 
-                        )
-                      ],
-                    ),
-                  )),
-              Expanded(
-                flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      CircularProgressIndicator(
-                        backgroundColor: Colors.redAccent,
-                      ),
-                      Padding(padding: EdgeInsets.only(top: 20.0)),
-                      Text(
-                        'Holiday is starting ...',
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                          color: Colors.black
-                        ),
-                      ),
-                    ],
-                  ))
-            ],
-          ),
-        ],
-
-      ),
-    );
+  List<Country> parseJosn(String response) {
+    if(response==null){
+      return [];
+    }
+    final parsed =
+    json.decode(response.toString()).cast<Map<String, dynamic>>();
+    return parsed.map<Country>((json) => new Country.fromJson(json)).toList();
   }
 }
