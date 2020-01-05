@@ -17,18 +17,18 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   List<Month> monthList = [
-    Month(title: 'January', url: 'assets/json/1.json'),
-    Month(title: 'February', url: 'assets/json/2.json'),
-    Month(title: 'March', url: 'assets/json/3.json'),
-    Month(title: 'April', url: 'assets/json/4.json'),
-    Month(title: 'May', url: 'assets/json/5.json'),
-    Month(title: 'June', url: 'assets/json/6.json'),
-    Month(title: 'July', url: 'assets/json/7.json'),
-    Month(title: 'August', url: 'assets/json/8.json'),
-    Month(title: 'September', url: 'assets/json/9.json'),
-    Month(title: 'October', url: 'assets/json/10.json'),
-    Month(title: 'November', url: 'assets/json/11.json'),
-    Month(title: 'December', url: 'assets/json/12.json'),
+    Month(title: 'January', url: 'assets/json/jan.json'),
+    Month(title: 'February', url: 'assets/json/feb.json'),
+    Month(title: 'March', url: 'assets/json/mar.json'),
+    Month(title: 'April', url: 'assets/json/apr.json'),
+    Month(title: 'May', url: 'assets/json/may.json'),
+    Month(title: 'June', url: 'assets/json/jun.json'),
+    Month(title: 'July', url: 'assets/json/jul.json'),
+    Month(title: 'August', url: 'assets/json/aug.json'),
+    Month(title: 'September', url: 'assets/json/sep.json'),
+    Month(title: 'October', url: 'assets/json/oct.json'),
+    Month(title: 'November', url: 'assets/json/nov.json'),
+    Month(title: 'December', url: 'assets/json/dec.json'),
   ];
 
   @override
