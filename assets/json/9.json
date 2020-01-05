@@ -1,18 +1,10 @@
 [
   {
-  "date": "01",
-  "day": "Tues",
-  "name": "New year day",
+  "date": "02",
+  "day": "Wed",
+  "name": "Madhu Purnima",
   "type": "Optional Holiday",
-  "color": "0xFF00E676",
-  "description": "New Year’s Day, which is on January 1, marks the start of the year in the Gregorian calendar and it's a public holiday in many countries. Count down to the New Year, no matter where you are."
-},
-  {
-    "date": "02",
-    "day": "Wed",
-    "name": "New year day",
-    "type": "Optional Holiday",
-    "color": "0xFF00E676",
-    "description": "New Year’s Day, which is on January 1, marks the start of the year in the Gregorian calendar and it's a public holiday in many countries. Count down to the New Year, no matter where you are."
-  }
+  "color": "0xFFFFFF00",
+  "description": "Madhu Purnima is a Buddhist festival celebrated in Bangladesh by the Barua and Chakma people of Chittagong and by the Mon people of Thailand. It occurs on the day of the full moon in the Bangla month of Bhadro."
+}
 ]

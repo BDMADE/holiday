@@ -1,18 +1,10 @@
 [
   {
-  "date": "01",
-  "day": "Tues",
-  "name": "New year day",
-  "type": "Optional Holiday",
-  "color": "0xFF00E676",
-  "description": "New Year’s Day, which is on January 1, marks the start of the year in the Gregorian calendar and it's a public holiday in many countries. Count down to the New Year, no matter where you are."
-},
-  {
-    "date": "02",
-    "day": "Wed",
-    "name": "New year day",
-    "type": "Optional Holiday",
-    "color": "0xFF00E676",
-    "description": "New Year’s Day, which is on January 1, marks the start of the year in the Gregorian calendar and it's a public holiday in many countries. Count down to the New Year, no matter where you are."
-  }
+  "date": "21",
+  "day": "Sun",
+  "name": "Fathers' Day",
+  "type": "Observance",
+  "color": "0xFF40C4FF",
+  "description": "Father’s Day is celebrated worldwide to recognize the contribution that fathers and father figures make to the lives of their children. This day celebrates fatherhood and male parenting."
+}
 ]
