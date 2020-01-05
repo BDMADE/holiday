@@ -1,111 +1,252 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:holiday/model/month.dart';
+import 'package:holiday/model/holiday.dart';
 
-void main() => runApp(MyApp());
+void main () => runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(primaryColor: Color.fromRGBO(58, 66, 86, 1.0), fontFamily: 'IndieFlower'),
+    home: SplashScreen(),
+  ));
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class SplashScreen extends StatefulWidget {
   @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  List<Month> monthList = [
+    Month(title: 'January', url: 'assets/json/1.json'),
+    Month(title: 'February', url: 'assets/json/2.json'),
+    Month(title: 'March', url: 'assets/json/3.json'),
+    Month(title: 'April', url: 'assets/json/4.json'),
+    Month(title: 'May', url: 'assets/json/5.json'),
+    Month(title: 'June', url: 'assets/json/6.json'),
+    Month(title: 'July', url: 'assets/json/7.json'),
+    Month(title: 'August', url: 'assets/json/8.json'),
+    Month(title: 'September', url: 'assets/json/9.json'),
+    Month(title: 'October', url: 'assets/json/10.json'),
+    Month(title: 'November', url: 'assets/json/11.json'),
+    Month(title: 'December', url: 'assets/json/12.json'),
+  ];
+
+  @override
+  void initState(){
+    super.initState();
+    Timer(Duration(seconds: 3),
+            ()=> Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (BuildContext context) => FirstScreen(months: monthList)
+            )));
+  }
+
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+      body: Center(
+        child: Text('Holidays',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 50.0,
+          fontFamily: 'IndieFlower',
+          color: Colors.white),
+        ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class FirstScreen extends StatelessWidget {
+  final List<Month> months;
+  FirstScreen({Key key, @required this.months}) : super(key: key);
+  
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Holidays', style: TextStyle(fontFamily: 'IndieFlower'),), centerTitle: true,),
+      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
+        child: GridView.builder(
+          itemCount: months.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            itemBuilder: (context, index) {
+              return Card(
+                  elevation: 10.0,
+                  margin: EdgeInsets.all(2.0),
+                  child: Container(
+                    decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SecondScreen(month: months[index]),),);
+                        },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisSize: MainAxisSize.min,
+                        verticalDirection: VerticalDirection.down,
+                        children: <Widget>[
+                          SizedBox(height: 40.0),
+                          Center(
+                              child: Icon(
+                                Icons.calendar_today,
+                                size: 20.0,
+                                color: Colors.white,
+                              )),
+                          SizedBox(height: 20.0),
+                          new Center(
+                            child: new Text(months[index].title, style:TextStyle(fontSize: 16.0, color: Colors.white, fontFamily: 'IndieFlower')),
+                          )
+                        ],
+                      ),
+                    ),
+                  ));
+            },
+        ),
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class SecondScreen extends StatefulWidget {
+  // Declare a field that holds the Month.
+  final Month month;
+  // In the constructor, require a Month.
+  SecondScreen({Key key, @required this.month}) : super(key: key);
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  @override
+  _SecondScreenState createState() => _SecondScreenState();
+}
+
+class _SecondScreenState extends State<SecondScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text(widget.month.title,
+          style:
+          TextStyle(
+          fontFamily: 'IndieFlower'
+          )
+          ,
+        ),
+          centerTitle: true,),
+        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+        body: Container(
+          child: Center(
+            // Use future builder and DefaultAssetBundle to load the local JSON file
+            child: FutureBuilder(
+                future: DefaultAssetBundle.of(context).loadString(widget.month.url),
+                builder: (context, snapshot) {
+                  List<Holiday> holidays = parseJson(snapshot.data);
+                  return holidays.isEmpty? Center(child: CircularProgressIndicator()): HolidayList(holiday: holidays);
+                }),
+          ),
+        )
+    );
   }
+
+  List<Holiday> parseJson(String response) {
+    if(response==null) {
+      return [];
+    }
+    final parsed = json.decode(response.toString()).cast<Map<String, dynamic>>();
+    return parsed.map<Holiday>((json) => Holiday.fromJson(json)).toList();
+  }
+}
+
+class HolidayList extends StatelessWidget {
+  final List<Holiday> holiday;
+  HolidayList({Key key, this.holiday}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    return ListView.builder(
+        itemCount: holiday == null ? 0 : holiday.length,
+        itemBuilder: (context, index) {
+          return Card(
+              elevation: 10.0,
+              margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              child: Container(
+                decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+                child: ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  leading: Container(padding: EdgeInsets.only(right: 12.0),decoration: BoxDecoration(border: Border(right: BorderSide(width: 1.0, color: Colors.white24))),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2.0),
+                      child: Column(
+                        children: <Widget>[
+                          Text(holiday[index].date, style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.bold),),
+                          Text(holiday[index].day, style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.bold),),
+                        ],
+                      ),
+                    ),
+                  ),
+                  title: Text(holiday[index].name,style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),),
+                  subtitle: Row(
+                    children: <Widget>[
+                      Expanded(
+                          flex: 1,
+                          child: Container(
+                            // tag: 'hero',
+                            child: LinearProgressIndicator(
+                                backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
+                                value: 1.0,
+                                valueColor: AlwaysStoppedAnimation(Color(int.parse(holiday[index].color)))),
+                          )),
+                      Expanded(
+                        flex: 4,
+                        child: Padding(
+                            padding: EdgeInsets.only(left: 10.0),
+                            child: Text(holiday[index].type,
+                                style: TextStyle(color: Colors.white))),
+                      )
+                    ],
+                  ),
+                  trailing:Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ThirdScreen(data: holiday[index]),),);},
+                ),
+              )
+          );
+        });
+  }
+
+}
+
+class ThirdScreen extends StatefulWidget {
+  final Holiday data;
+  ThirdScreen({Key key, @required this.data}) : super(key: key);
+  @override
+  _ThirdScreenState createState() => _ThirdScreenState();
+}
+
+class _ThirdScreenState extends State<ThirdScreen> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(widget.data.name, style: TextStyle(fontFamily: 'IndieFlower'),),
+        centerTitle: true,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Card(
+            elevation: 10.0,
+            margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+            child: Container(
+              decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
+              child: ListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                subtitle: Padding(padding: EdgeInsets.only(left: 10.0),
+                    child: Text(widget.data.description,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
+                    )
+                ),
+              ),
+            )
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
