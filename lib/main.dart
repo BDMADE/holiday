@@ -3,13 +3,17 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:holiday/model/month.dart';
 import 'package:holiday/model/holiday.dart';
+import 'package:admob_flutter/admob_flutter.dart';
 
-void main () => runApp(MaterialApp(
+void main () {
+  Admob.initialize(getAppId());
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(primaryColor: Color.fromRGBO(58, 66, 86, 1.0), fontFamily: 'IndieFlower'),
+    theme: ThemeData(primaryColor: Color.fromRGBO(58, 66, 86, 1.0),
+        fontFamily: 'Raleway'),
     home: SplashScreen(),
   ));
-
+}
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -161,6 +165,20 @@ class HolidayList extends StatelessWidget {
     return ListView.builder(
         itemCount: holiday == null ? 0 : holiday.length,
         itemBuilder: (context, index) {
+          // admob integration
+          if(index !=0 && index % 2 == 0){
+            return Column(
+              children: <Widget>[
+                Container(
+                 margin: EdgeInsets.only(bottom: 20.0),
+                 child: AdmobBanner(
+                   adUnitId: getBannerAdUnitId(),
+                   adSize: AdmobBannerSize.BANNER,
+                 ),
+                ),
+              ],
+            );
+          }
           return Card(
               elevation: 10.0,
               margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
@@ -207,7 +225,6 @@ class HolidayList extends StatelessWidget {
           );
         });
   }
-
 }
 
 class ThirdScreen extends StatefulWidget {
@@ -220,6 +237,7 @@ class ThirdScreen extends StatefulWidget {
 class _ThirdScreenState extends State<ThirdScreen> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.data.name, style: TextStyle(fontFamily: 'IndieFlower'),),
@@ -228,25 +246,41 @@ class _ThirdScreenState extends State<ThirdScreen> {
       backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Card(
-            elevation: 10.0,
-            margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-            child: Container(
-              decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
-              child: ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                subtitle: Padding(padding: EdgeInsets.only(left: 10.0),
-                    child: Text(widget.data.description,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                      ),
-                    )
-                ),
-              ),
-            )
+        child: Column(
+          children: <Widget>[
+            Card(
+                elevation: 10.0,
+                margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                child: Container(
+                  decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    subtitle: Padding(padding: EdgeInsets.only(left: 10.0),
+                        child: Text(widget.data.description,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.0,
+                          ),
+                        )
+                    ),
+                  ),
+                )
+            ),
+            AdmobBanner(
+              adUnitId: getBannerAdUnitId(),
+              adSize: AdmobBannerSize.LARGE_BANNER,
+            ),
+          ],
         ),
       ),
     );
   }
+}
+
+String getAppId() {
+  return 'ca-app-pub-3940256099942544~3347511713';
+}
+
+String getBannerAdUnitId() {
+  return 'ca-app-pub-3940256099942544/6300978111';
 }
