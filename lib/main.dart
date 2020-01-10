@@ -7,6 +7,7 @@ import 'package:admob_flutter/admob_flutter.dart';
 
 void main () {
   Admob.initialize(getAppId());
+//  run the app
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(primaryColor: Color.fromRGBO(58, 66, 86, 1.0),
@@ -40,8 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: 3),
             ()=> Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => FirstScreen(months: monthList)
-            )));
+            builder: (BuildContext context) => FirstScreen(months: monthList)
+        )));
   }
 
   Widget build(BuildContext context) {
@@ -51,8 +52,8 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Text('Holidays',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 50.0,
-          fontFamily: 'IndieFlower',
-          color: Colors.white),
+              fontFamily: 'IndieFlower',
+              color: Colors.white),
         ),
       ),
     );
@@ -62,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
 class FirstScreen extends StatelessWidget {
   final List<Month> months;
   FirstScreen({Key key, @required this.months}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,38 +73,38 @@ class FirstScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
         child: GridView.builder(
           itemCount: months.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-            itemBuilder: (context, index) {
-              return Card(
-                  elevation: 10.0,
-                  margin: EdgeInsets.all(2.0),
-                  child: Container(
-                    decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SecondScreen(month: months[index]),),);
-                        },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.min,
-                        verticalDirection: VerticalDirection.down,
-                        children: <Widget>[
-                          SizedBox(height: 40.0),
-                          Center(
-                              child: Icon(
-                                Icons.calendar_today,
-                                size: 20.0,
-                                color: Colors.white,
-                              )),
-                          SizedBox(height: 20.0),
-                          new Center(
-                            child: new Text(months[index].title, style:TextStyle(fontSize: 16.0, color: Colors.white, fontFamily: 'IndieFlower')),
-                          )
-                        ],
-                      ),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+          itemBuilder: (context, index) {
+            return Card(
+                elevation: 10.0,
+                margin: EdgeInsets.all(2.0),
+                child: Container(
+                  decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SecondScreen(month: months[index]),),);
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      verticalDirection: VerticalDirection.down,
+                      children: <Widget>[
+                        SizedBox(height: 40.0),
+                        Center(
+                            child: Icon(
+                              Icons.calendar_today,
+                              size: 20.0,
+                              color: Colors.white,
+                            )),
+                        SizedBox(height: 20.0),
+                        new Center(
+                          child: new Text(months[index].title, style:TextStyle(fontSize: 16.0, color: Colors.white, fontFamily: 'IndieFlower')),
+                        )
+                      ],
                     ),
-                  ));
-            },
+                  ),
+                ));
+          },
         ),
       ),
     );
@@ -125,11 +126,7 @@ class _SecondScreenState extends State<SecondScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text(widget.month.title,
-          style:
-          TextStyle(
-          fontFamily: 'IndieFlower'
-          )
-          ,
+          style: TextStyle(fontFamily: 'IndieFlower'),
         ),
           centerTitle: true,),
         backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
@@ -165,20 +162,6 @@ class HolidayList extends StatelessWidget {
     return ListView.builder(
         itemCount: holiday == null ? 0 : holiday.length,
         itemBuilder: (context, index) {
-          // admob integration
-          if(index !=0 && index % 2 == 0){
-            return Column(
-              children: <Widget>[
-                Container(
-                 margin: EdgeInsets.only(bottom: 20.0),
-                 child: AdmobBanner(
-                   adUnitId: getBannerAdUnitId(),
-                   adSize: AdmobBannerSize.BANNER,
-                 ),
-                ),
-              ],
-            );
-          }
           return Card(
               elevation: 10.0,
               margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
@@ -197,7 +180,7 @@ class HolidayList extends StatelessWidget {
                       ),
                     ),
                   ),
-                  title: Text(holiday[index].name,style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),),
+                  title: Text(holiday[index].name,style: TextStyle(color: Colors.white, fontSize: 13.5, fontWeight: FontWeight.bold),),
                   subtitle: Row(
                     children: <Widget>[
                       Expanded(
@@ -235,9 +218,9 @@ class ThirdScreen extends StatefulWidget {
 }
 
 class _ThirdScreenState extends State<ThirdScreen> {
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.data.name, style: TextStyle(fontFamily: 'IndieFlower'),),
@@ -278,9 +261,9 @@ class _ThirdScreenState extends State<ThirdScreen> {
 }
 
 String getAppId() {
-  return 'ca-app-pub-3940256099942544~3347511713';
+  return 'ca-app-pub-8933442195154449~4178301396';
 }
 
 String getBannerAdUnitId() {
-  return 'ca-app-pub-3940256099942544/6300978111';
+  return 'ca-app-pub-8933442195154449/9486468398';
 }

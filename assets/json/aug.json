@@ -2,18 +2,18 @@
   {
     "date": "01",
     "day": "Sat",
-    "name": "Eid al Adha",
+    "name": "Eid ul Adha",
     "type": "Public Holiday",
     "color": "0xFF00E676",
-    "description": "Eid al-Adha is an Islamic festival to commemorate the willingness of Ibrahim (also known as Abraham) to follow Allah's command to sacrifice his son."
+    "description": "Eid ul-Adha is an Islamic festival to commemorate the willingness of Ibrahim (also known as Abraham) to follow Allah's command to sacrifice his son."
   },
   {
     "date": "02",
     "day": "Sun",
-    "name": "Eid al Adha",
+    "name": "Eid ul Adha",
     "type": "Public Holiday",
     "color": "0xFF00E676",
-    "description": "Eid al-Adha is an Islamic festival to commemorate the willingness of Ibrahim (also known as Abraham) to follow Allah's command to sacrifice his son."
+    "description": "Eid ul-Adha is an Islamic festival to commemorate the willingness of Ibrahim (also known as Abraham) to follow Allah's command to sacrifice his son."
   },
   {
     "date": "03",
@@ -43,8 +43,8 @@
     "date": "22",
     "day": "Tues",
     "name": "Ganesh Chaturthi",
-    "type": "Hindu Holiday",
-    "color": "0xFF00E676",
+    "type": "Optional Holiday",
+    "color": "0xFFFFFF00",
     "description": "Ganesh Chaturthi, also known as Vinayaka Chaturthi, is a Hindu festival celebrating the arrival of Ganesha to earth from 'Kailash Parvat' with his mother goddess Parvati/Gauri."
   },
   {
